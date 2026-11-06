@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>أذكار وقراءة القرآن الكريم</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f1e7;--card:#fffdf8;--tx:#2b2a26;--mu:#7a7468;--ac:#1f6b52;--ac2:#d9ece4;--bd:#e4dccb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14191a;--card:#1c2324;--tx:#ece8dd;--mu:#9aa39f;--ac:#4fc29a;--ac2:#1f3a32;--bd:#2c3737;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14191a;--card:#1c2324;--tx:#ece8dd;--mu:#9aa39f;--ac:#4fc29a;--ac2:#1f3a32;--bd:#2c3737;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Amiri","Traditional Arabic",serif;font-size:20px;line-height:1.9}
+main{max-width:640px;margin:0 auto;padding:16px}
+h1{text-align:center;color:var(--ac);margin:8px 0 2px;font-size:28px}
+.sub{text-align:center;color:var(--mu);font-size:16px;margin-bottom:14px}
+nav{display:flex;gap:6px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:5px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+nav button{flex:1;font:inherit;font-size:16px;border:0;background:none;color:var(--mu);padding:8px 4px;border-radius:10px;cursor:pointer}
+nav button.on{background:var(--ac);color:#fff}
+.bar{height:8px;background:var(--ac2);border-radius:8px;margin:14px 0;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ac);width:0;transition:width .3s}
+.stat{display:flex;justify-content:space-between;font-size:16px;color:var(--mu)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin:12px 0}
+.card.done{opacity:.55}
+.t{font-size:22px;text-align:justify}
+.q{font-size:25px;line-height:2.3;text-align:justify}
+.m{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px}
+.note{font-size:15px;color:var(--mu)}
+.cnt{font:inherit;font-size:20px;min-width:84px;border:2px solid var(--ac);background:var(--ac2);color:var(--ac);border-radius:30px;padding:4px 14px;cursor:pointer;font-weight:700}
+.done .cnt{background:var(--ac);color:#fff}
+.btn{font:inherit;font-size:17px;border:1px solid var(--ac);background:none;color:var(--ac);border-radius:10px;padding:6px 14px;cursor:pointer}
+.btn.f{background:var(--ac);color:#fff}
+input[type=number]{font:inherit;width:90px;padding:4px 8px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--tx)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+h3{margin:4px 0 6px;color:var(--ac);font-size:21px}
+.pr{display:flex;justify-content:space-between;padding:8px 12px;border-radius:10px;font-size:22px}.pr.nx{background:var(--ac2);color:var(--ac)}.nxt{text-align:center;font-size:21px;color:var(--ac);margin:8px 0;font-weight:700}select{font:inherit;padding:4px 8px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--tx)}
+.hide{display:none}
+</style>
+</head>
+<body>
+<main>
+<h1>أذكار وقراءة القرآن الكريم</h1>
+<div class="sub" id="date"></div>
+<nav>
+<button data-t="m">☀️ الصباح</button>
+<button data-t="e">🌙 المساء</button>
+<button data-t="p">🕌 الصلاة</button>
+<button data-t="q">📖 القرآن</button>
+</nav>
+<section id="adhkar">
+<div class="bar"><i id="pb"></i></div>
+<div class="stat"><span id="pt"></span><button class="btn" id="rs">إعادة</button></div>
+<div id="list"></div>
+</section>
+<section id="prayer" class="hide">
+<div class="card"><h3>أوقات الصلاة في السعودية</h3>
+<div class="row">المدينة: <select id="cs"></select></div>
+<div class="nxt" id="nx"></div>
+<div id="pl"></div>
+<div class="note">الحساب بطريقة أم القرى وبتوقيت السعودية، وقد يختلف دقيقة أو دقيقتين عن التقويم الرسمي.</div></div>
+</section>
+<section id="quran" class="hide">
+<div class="card">
+<h3>وردي اليومي</h3>
+<div class="row">الصفحة الحالية: <input type="number" id="pg" min="1" max="604"> من ٦٠٤</div>
+<div class="row">هدف اليوم (صفحات): <input type="number" id="goal" min="1" max="60"></div>
+<div class="row"><button class="btn f" id="plus">+ قرأت صفحة</button><button class="btn" id="minus">−</button></div>
+<div class="note" id="wi"></div>
+<div class="bar"><i id="kb"></i></div>
+<div class="note" id="kt"></div>
+</div>
+<div id="sur"></div>
+</section>
+<p class="sub">تُحفظ بياناتك على جهازك فقط. تقبّل الله طاعتكم 🤍</p>
+</main>
+<script>
+const MORN="أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+EVE="أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ";
+const SUR=[
+["الفاتحة","بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ ۝ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝ مَٰلِكِ يَوْمِ ٱلدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ۝ صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ ۝"],
+["آية الكرسي","ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ ۚ لَا تَأْخُذُهُۥ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُۥ مَا فِى ٱلسَّمَٰوَٰتِ وَمَا فِى ٱلْأَرْضِ ۗ مَن ذَا ٱلَّذِى يَشْفَعُ عِندَهُۥٓ إِلَّا بِإِذْنِهِۦ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَىْءٍ مِّنْ عِلْمِهِۦٓ إِلَّا بِمَا شَآءَ ۚ وَسِعَ كُرْسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضَ ۖ وَلَا يَـُٔودُهُۥ حِفْظُهُمَا ۚ وَهُوَ ٱلْعَلِىُّ ٱلْعَظِيمُ ۝"],
+["الإخلاص","قُلْ هُوَ ٱللَّهُ أَحَدٌ ۝ ٱللَّهُ ٱلصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ ۝"],
+["الفلق","قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ ٱلنَّفَّٰثَٰتِ فِى ٱلْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ۝"],
+["الناس","قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ ۝ مَلِكِ ٱلنَّاسِ ۝ إِلَٰهِ ٱلنَّاسِ ۝ مِن شَرِّ ٱلْوَسْوَاسِ ٱلْخَنَّاسِ ۝ ٱلَّذِى يُوَسْوِسُ فِى صُدُورِ ٱلنَّاسِ ۝ مِنَ ٱلْجِنَّةِ وَٱلنَّاسِ ۝"],
+["خواتيم البقرة","ءَامَنَ ٱلرَّسُولُ بِمَآ أُنزِلَ إِلَيْهِ مِن رَّبِّهِۦ وَٱلْمُؤْمِنُونَ ۚ كُلٌّ ءَامَنَ بِٱللَّهِ وَمَلَٰٓئِكَتِهِۦ وَكُتُبِهِۦ وَرُسُلِهِۦ لَا نُفَرِّقُ بَيْنَ أَحَدٍ مِّن رُّسُلِهِۦ ۚ وَقَالُوا۟ سَمِعْنَا وَأَطَعْنَا ۖ غُفْرَانَكَ رَبَّنَا وَإِلَيْكَ ٱلْمَصِيرُ ۝ لَا يُكَلِّفُ ٱللَّهُ نَفْسًا إِلَّا وُسْعَهَا ۚ لَهَا مَا كَسَبَتْ وَعَلَيْهَا مَا ٱكْتَسَبَتْ ۗ رَبَّنَا لَا تُؤَاخِذْنَآ إِن نَّسِينَآ أَوْ أَخْطَأْنَا ۚ رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُۥ عَلَى ٱلَّذِينَ مِن قَبْلِنَا ۚ رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِۦ ۖ وَٱعْفُ عَنَّا وَٱغْفِرْ لَنَا وَٱرْحَمْنَآ ۚ أَنتَ مَوْلَىٰنَا فَٱنصُرْنَا عَلَى ٱلْقَوْمِ ٱلْكَٰفِرِينَ ۝"]];
+// [id, text, count, note, only:'m'|'e'|undefined]
+const D=[
+["ks",SUR[1][1],1,"آية الكرسي"],
+["ik","قُلْ هُوَ اللَّهُ أَحَدٌ، وَالْمُعَوِّذَتَيْنِ (الإخلاص والفلق والناس)",3,"تُقرأ كل سورة ثلاث مرات"],
+["sb",MORN,1,"ثم: «رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ…»","m"],
+["se",EVE,1,"ثم: «رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا…»","e"],
+["bm","اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ",1,"","m"],
+["be","اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ",1,"","e"],
+["sy","اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",1,"سيد الاستغفار"],
+["rd","رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا",3,""],
+["bs","بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",3,""],
+["af","اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ",3,""],
+["wf","اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ",1,""],
+["ak","أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",3,"","e"],
+["hs","حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",7,""],
+["sh","سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",100,""],
+["la","لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",10,"ومن قالها مئة مرة كان له أجر عظيم"],
+["is","أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",100,""],
+["sl","اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",10,""]];
+const $=s=>document.querySelector(s),ar=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+const today=new Date().toISOString().slice(0,10);
+let S={d:today,c:{},pg:1,goal:5,rd:0,hist:[]},tab=new Date().getHours()<15?"m":"e";
+try{const x=JSON.parse(localStorage.getItem("adhkar-v1"));if(x)S=Object.assign(S,x)}catch(e){}
+if(S.d!==today){S.hist=(S.hist||[]).concat(S.rd>=S.goal?[S.d]:[]).slice(-400);S.d=today;S.c={};S.rd=0}
+const save=()=>{try{localStorage.setItem("adhkar-v1",JSON.stringify(S))}catch(e){}};
+$("#date").textContent=new Date().toLocaleDateString("ar-SA",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+function key(id){return tab+id}
+function renderA(){
+const items=D.filter(x=>!x[4]||x[4]===tab);
+let done=0;
+$("#list").innerHTML="";
+items.forEach(([id,t,n,note])=>{
+const left=Math.max(0,n-(S.c[key(id)]||0));if(!left)done++;
+const c=document.createElement("div");c.className="card"+(left?"":" done");
+c.innerHTML=`<div class="t">${t}</div><div class="m"><span class="note">${note}</span><button class="cnt">${left?ar(left)+" / "+ar(n):"✓"}</button></div>`;
+c.querySelector(".cnt").onclick=()=>{if(left){S.c[key(id)]=(S.c[key(id)]||0)+1;save();renderA();if(navigator.vibrate)navigator.vibrate(15)}};
+$("#list").appendChild(c)});
+$("#pb").style.width=done/items.length*100+"%";
+$("#pt").textContent=`أنجزت ${ar(done)} من ${ar(items.length)}`+(done===items.length?" — تقبّل الله 🤍":"")}
+$("#rs").onclick=()=>{Object.keys(S.c).filter(k=>k[0]===tab).forEach(k=>delete S.c[k]);save();renderA()};
+function renderQ(){
+$("#pg").value=S.pg;$("#goal").value=S.goal;
+$("#wi").textContent=`قرأت اليوم ${ar(S.rd)} من ${ar(S.goal)} صفحات`+(S.rd>=S.goal?" ✅":"");
+$("#kb").style.width=Math.min(100,S.pg/604*100)+"%";
+const left=604-S.pg;
+$("#kt").textContent=`تقدّم الختمة: ${ar(Math.round(S.pg/604*100))}٪ — يتبقى ${ar(left)} صفحة (~${ar(Math.ceil(left/Math.max(1,S.goal)))} يوم)`;
+$("#sur").innerHTML=SUR.map(([n,t])=>`<div class="card"><h3>${n}</h3><div class="q">${t}</div></div>`).join("")}
+$("#pg").onchange=e=>{S.pg=Math.min(604,Math.max(1,+e.target.value||1));save();renderQ()};
+$("#goal").onchange=e=>{S.goal=Math.min(60,Math.max(1,+e.target.value||5));save();renderQ()};
+$("#plus").onclick=()=>{S.pg=Math.min(604,S.pg+1);S.rd++;save();renderQ()};
+$("#minus").onclick=()=>{if(S.rd>0){S.pg=Math.max(1,S.pg-1);S.rd--;save();renderQ()}};
+const CITIES=[["الرياض",24.7136,46.6753],["مكة المكرمة",21.3891,39.8579],["المدينة المنورة",24.4709,39.6122],["جدة",21.4858,39.1925],["الدمام",26.4207,50.0888],["الخبر",26.2172,50.1971],["الأحساء",25.3648,49.5875],["الطائف",21.2703,40.4158],["بريدة",26.326,43.975],["حائل",27.5114,41.7208],["تبوك",28.3838,36.555],["أبها",18.2164,42.5053],["جازان",16.8892,42.5511],["نجران",17.4917,44.1322],["الباحة",20.0129,41.4677],["سكاكا",29.9697,40.2064],["عرعر",30.9753,41.0381],["ينبع",24.0895,38.0618]];
+const PN=["الفجر","الشروق","الظهر","العصر","المغرب","العشاء"];
+if(typeof S.city!=="number"||!CITIES[S.city])S.city=0;
+const RD=Math.PI/180,sn=x=>Math.sin(x*RD),cs=x=>Math.cos(x*RD),tn=x=>Math.tan(x*RD),fx=h=>((h%24)+24)%24;
+function times(y,m,d,lat,lng){
+const D=Date.UTC(y,m,d,12)/864e5+2440587.5-2451545,g=(357.529+.98560028*D)%360,q=(280.459+.98564736*D)%360,
+L=(q+1.915*sn(g)+.02*sn(2*g))%360,e=23.439-3.6e-7*D,
+RA=fx(Math.atan2(cs(e)*sn(L),cs(L))/RD/15),dc=Math.asin(sn(e)*sn(L))/RD,
+dh=12+3-lng/15-(fx(q/15-RA+12)-12);
+const T=a=>Math.acos((-sn(a)-sn(dc)*sn(lat))/(cs(dc)*cs(lat)))/RD/15;
+const A=Math.atan(1/(1+tn(Math.abs(lat-dc))))/RD,as=Math.acos((sn(A)-sn(dc)*sn(lat))/(cs(dc)*cs(lat)))/RD/15;
+let ram=false;try{ram=new Intl.DateTimeFormat("en-u-ca-islamic-umalqura",{month:"numeric",timeZone:"UTC"}).format(Date.UTC(y,m,d,12))==="9"}catch(x){}
+const mg=dh+T(.833);
+return [dh-T(18.5),dh-T(.833),dh,dh+as,mg,mg+(ram?2:1.5)]}
+function calc(off){const n=new Date(Date.now()+10800000+off*864e5),c=CITIES[S.city];return times(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate(),c[1],c[2])}
+function fmt(h){const t=Math.round(h*60),hh=Math.floor(t/60)%24,mm=t%60;return ar(hh%12||12)+":"+ar(String(mm).padStart(2,"0"))+" "+(hh>=12?"م":"ص")}
+function renderP(){
+const t=calc(0);
+$("#cs").innerHTML=CITIES.map((c,i)=>`<option value="${i}"${i===S.city?" selected":""}>${c[0]}</option>`).join("");
+$("#pl").innerHTML=t.map((h,i)=>`<div class="pr"><span>${PN[i]}</span><b>${fmt(h)}</b></div>`).join("");
+tickP()}
+function tickP(){
+if(tab!=="p")return;
+const n=new Date(Date.now()+10800000),now=n.getUTCHours()+n.getUTCMinutes()/60+n.getUTCSeconds()/3600,t=calc(0);
+let i=t.findIndex(h=>h>now),w;
+if(i<0){i=0;w=calc(1)[0]+24-now}else w=t[i]-now;
+const s=Math.max(0,Math.floor(w*3600)),p=v=>ar(String(v).padStart(2,"0"));
+$("#nx").textContent=PN[i]+" بعد "+p(Math.floor(s/3600))+":"+p(Math.floor(s%3600/60))+":"+p(s%60);
+document.querySelectorAll(".pr").forEach((e,j)=>e.classList.toggle("nx",j===i))}
+$("#cs").onchange=e=>{S.city=+e.target.value;save();renderP()};
+setInterval(tickP,1000);
+function show(){
+document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
+$("#adhkar").classList.toggle("hide",tab==="q"||tab==="p");$("#quran").classList.toggle("hide",tab!=="q");$("#prayer").classList.toggle("hide",tab!=="p");
+tab==="q"?renderQ():tab==="p"?renderP():renderA()}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{tab=b.dataset.t;show();scrollTo(0,0)});
+show();
+</script>
+</body>
+</html>
